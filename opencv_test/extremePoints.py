@@ -11,7 +11,7 @@ write = False
 def main():
     # Read image
     for f in range(1,42):
-        img = cv2.imread('Img/{}.jpg'.format(f))
+        img = cv2.imread('images/{}.jpg'.format(f))
         showProcessed(img)
 
 def showProcessed(img):
