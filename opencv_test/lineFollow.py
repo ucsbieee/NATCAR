@@ -8,7 +8,7 @@ import geom_util as geom
 import roi
 import track_conf as tconf
 
-    
+
 
 #default gray threshold
 T = tconf.threshold
@@ -47,8 +47,8 @@ def balance_pic(image):
             direction = -1
         else:
             ret = crop
-            break  
-    return ret      
+            break
+    return ret
 
 
 def adjust_brightness(img, level):
@@ -61,7 +61,7 @@ def adjust_brightness(img, level):
     c[:,:,2] = c[:,:,2] * r
     return cv.cvtColor(c, cv.COLOR_HSV2BGR)
 
-    
+
 
 def prepare_pic(image):
     global Roi
@@ -69,7 +69,7 @@ def prepare_pic(image):
     height, width = image.shape[:2]
 
     gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
-    blurred = cv.GaussianBlur(gray, (9, 9), 0)
+    blurred = cv.GaussianBlur(gray, (9, 9), 0) # might be able to reduce the kernel size
 
     if Roi.get_area() == 0:
         Roi.init_roi(width, height)
@@ -99,6 +99,11 @@ def find_main_countour(image):
 
 def handle_pic(path, fout = None, show = False):
     image = cv.imread(path)
+
+    # crop the top half of the image so it's as if the car were halfway up the track
+    # height, _ = image.shape[:2] # added
+    # image = image[:int(height/2),:] # added
+
     if image is None:
         logging.warning(("File not found", path))
         return None, None
@@ -108,7 +113,7 @@ def handle_pic(path, fout = None, show = False):
     cont, box = find_main_countour(cropped)
     if cont is None:
         return None, None
-    
+
     p1, p2 = geom.calc_box_vector(box)
     if p1 is None:
         return None, None
@@ -125,13 +130,13 @@ def handle_pic(path, fout = None, show = False):
         msg_a = "Angle {0}".format(int(angle))
         msg_s = "Shift {0}".format(int(shift))
 
-        cv.putText(image, msg_a, (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
-        cv.putText(image, msg_s, (10, 40), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
+        cv.putText(image, msg_a, (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1) # changed color from (255,255,255)
+        cv.putText(image, msg_s, (10, 40), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1) # changed color from (255,255,255)
 
     if fout is not None:
         cv.imwrite(fout, image)
 
-    if show:    
+    if show:
         cv.imshow("Image", image)
         cv.waitKey(0)
     return angle, shift
@@ -161,7 +166,7 @@ def handle_pic2(path, fout = None, show = False):
     cont, box = find_main_countour(cropped)
     if cont is None:
         return None, None
-    
+
     p1, p2 = geom.calc_box_vector(box)
     if p1 is None:
         return None, None
@@ -189,7 +194,7 @@ def handle_pic2(path, fout = None, show = False):
     if fout is not None:
         cv.imwrite(fout, image)
 
-    if show:    
+    if show:
         cv.imshow("Image", image)
         cv.waitKey(0)
     return angle, shift
@@ -207,7 +212,7 @@ def test():
     """
     for f in os.listdir("images"):
         a, s = handle_pic("images/" + f, show=False)
-                                       
+
 
 
 
@@ -224,4 +229,3 @@ if __name__ == '__main__':
     """
     for f in os.listdir("images"):
         a, s = handle_pic("images/" + f, show=True)
-                                   

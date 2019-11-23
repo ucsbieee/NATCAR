@@ -1,16 +1,16 @@
 ## Picture settings
 
 # initial grayscale threshold
-threshold = 120
+threshold = 180 # was 120
 
 # max grayscale threshold
-threshold_max = 180
+threshold_max = 200 # was 180
 
 #min grayscale threshold
-threshold_min = 40
+threshold_min = 100 # was 40
 
 # iterations to find balanced threshold
-th_iterations = 10
+th_iterations = 1 # was 10
 
 # min % of white in roi
 white_min=3
@@ -21,7 +21,7 @@ white_max=12
 ## Driving settings
 
 # line angle to make a turn
-turn_angle = 45
+turn_angle = 25 # was 45
 
 # line shift to make an adjustment
 shift_max = 20

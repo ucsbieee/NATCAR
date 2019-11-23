@@ -25,7 +25,7 @@ def calc_rect_area(rect_points):
 def get_vert_angle(p1, p2, w, h):
     px1 = p1[0] - w/2
     px2 = p2[0] - w/2
-    
+
     py1 = h - p1[1]
     py2 = h - p2[1]
 
@@ -71,6 +71,6 @@ def calc_box_vector(box):
     v_side = calc_line_length(box[0], box[3])
     h_side = calc_line_length(box[0], box[1])
     idx = [0, 1, 2, 3]
-    if v_side < h_side:
+    if v_side < h_side: # this probably needs to change so that the box vector is always oriented vertically
         idx = [0, 3, 1, 2]
-    return ((box[idx[0]][0] + box[idx[1]][0]) / 2, (box[idx[0]][1] + box[idx[1]][1]) / 2), ((box[idx[2]][0] + box[idx[3]][0]) / 2, (box[idx[2]][1]  +box[idx[3]][1]) / 2)
+    return (int((box[idx[0]][0] + box[idx[1]][0]) / 2), int((box[idx[0]][1] + box[idx[1]][1]) / 2)), (int((box[idx[2]][0] + box[idx[3]][0]) / 2), int((box[idx[2]][1]  +box[idx[3]][1]) / 2))
