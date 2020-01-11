@@ -16,3 +16,5 @@ def main():
         i += 1
     
     camera.close()
+
+main()
