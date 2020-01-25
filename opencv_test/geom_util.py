@@ -42,8 +42,7 @@ def get_vert_angle(p1, p2, w, h):
             angle = 180 * np.arctan(tg) / np.pi
             if a < 0:
                 angle = 180 - angle
-    # return angle
-    return 90 - angle
+    return angle
 
 
 def order_box(box):

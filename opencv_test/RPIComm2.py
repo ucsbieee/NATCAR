@@ -1,9 +1,9 @@
 import serial
 import time
 import sys
-from lineFollowRPI import lineFollow
+from lineFollow2 import lineFollow
 sys.path.insert(1, '../pi_cam')
-from timelapseReal import takePicture
+from timelapse2 import takePicture
 
 def comm(firstAngle):
     s = serial.Serial('/dev/ttyACM0', 9600)
