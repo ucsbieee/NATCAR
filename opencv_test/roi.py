@@ -8,7 +8,7 @@ class ROI:
 
 
     def init_roi(self, width, height):
-        vertices = [(0, height), (width / 4, 3 * height / 4),(3 * width / 4, 3 * height / 4), (width, height),]
+        vertices = [(0, height), (width / 100, 75 * height / 100),(75 * width / 100, 75 * height / 100), (width, height),]
         self.vertices = np.array([vertices], np.int32)
         
         blank = np.zeros((height, width, 3), np.uint8)
