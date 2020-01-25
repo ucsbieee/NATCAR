@@ -216,7 +216,7 @@ def test():
 def lineFollow(i):
     if len(sys.argv) > 1:
         pic = sys.argv[1]
-    
+
     """
     fname = "photos/" + pic + ".jpg"
     angle, shift = handle_pic2(fname, fout="out.jpg", show=True)
