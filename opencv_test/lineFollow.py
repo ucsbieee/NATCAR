@@ -213,11 +213,21 @@ def test():
     for f in os.listdir("images"):
         a, s = handle_pic("images/" + f, show=False)
 
-
+def lineFollow(i):
+    if len(sys.argv) > 1:
+        pic = sys.argv[1]
+    
+    """
+    fname = "photos/" + pic + ".jpg"
+    angle, shift = handle_pic2(fname, fout="out.jpg", show=True)
+    print "Angle", angle, "Shift", shift
+    """
+    # for f in os.listdir("images"):
+    return handle_pic('image{0:04d}.jpg'.format(i), show=True)
 
 
 if __name__ == '__main__':
-    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+    # logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
     pic = "1"
     if len(sys.argv) > 1:
         pic = sys.argv[1]
