@@ -8,5 +8,9 @@ from timelapse2 import takePicture
 s = serial.Serial('/dev/ttyACM0', 9600)
 takePicture(0)
 a, shift = lineFollow(0)
+a = a/3.6
+a = 25-a
+a = a + 90
+a = int(a)
 s.write(str.encode(chr(a)))
 RPIComm2.comm(chr(a))

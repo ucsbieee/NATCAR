@@ -9,7 +9,12 @@ def comm(firstAngle):
     s = serial.Serial('/dev/ttyACM0', 9600)
     time.sleep(1.65)
     try:
-        s.write(str.encode(firstAngle))
+        firstAngle = ord(firstAngle)
+        firstAngle = firstAngle/3.6
+        firstAngle = 25-firstAngle
+        firstAngle = firstAngle + 90
+        firstAngle = int(firstAngle)
+        s.write(str.encode(chr(firstAngle)))
         i = 1
         while True:
             response = s.readline()
@@ -17,6 +22,11 @@ def comm(firstAngle):
             if response == b'DONE\r\n':
                 takePicture(i)
                 angle, shift = lineFollow(i)
+                #time.sleep(0.2)
+                angle = angle/3.6
+                angle = 25-angle
+                angle = angle + 90
+                angle = int(angle)
                 s.write(str.encode(chr(angle)))
                 i+=1
     except KeyboardInterrupt:

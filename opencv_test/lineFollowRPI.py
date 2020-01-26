@@ -114,8 +114,8 @@ def handle_pic(path, fout = None, show = False):
     image = cv.imread(path)
 
     # crop the top half of the image so it's as if the car were halfway up the track
-    # height, _ = image.shape[:2] # added
-    # image = image[:int(height/2),:] # added
+    #height, _ = image.shape[:2] # added
+    #image = image[:int(height/2),:] # added
 
     if image is None:
         logging.warning(("File not found", path))
@@ -141,24 +141,24 @@ def handle_pic(path, fout = None, show = False):
     draw = fout is not None or show
 
     if draw:
-        #cv.drawContours(image, [cont], -1, (0,0,255), 3)
-        #cv.drawContours(image,[box],0,(255,0,0),2)
-        #cv.line(image, p1, p2, (0, 255, 0), 3)
+        cv.drawContours(image, [cont], -1, (0,0,255), 3)
+        cv.drawContours(image,[box],0,(255,0,0),2)
+        cv.line(image, p1, p2, (0, 255, 0), 3)
         msg_a = "Angle {0}".format(int(angle))
         msg_s = "Shift {0}".format(int(shift))
         print(int(angle))
         print(int(shift))
         #RPIComm.comm(chr(angle))
 
-        #cv.putText(image, msg_a, (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1) # changed color from (255,255,255)
-        #cv.putText(image, msg_s, (10, 40), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1) # changed color from (255,255,255)
+        cv.putText(image, msg_a, (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1) # changed color from (255,255,255)
+        cv.putText(image, msg_s, (10, 40), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1) # changed color from (255,255,255)
 
-    #if fout is not None:
-    #    cv.imwrite(fout, image)
+    if fout is not None:
+        cv.imwrite(fout, image)
 
-    #if show:
-    #    cv.imshow("Image", image)
-    #    cv.waitKey(0)
+    if show:
+        cv.imshow("Image", image)
+        cv.waitKey(0)
     return angle, shift
 
 def prepare_pic2(image):

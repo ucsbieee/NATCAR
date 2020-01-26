@@ -8,13 +8,9 @@ import geom_util as geom
 import roi
 import track_conf as tconf
 
-
-
 #default gray threshold
 T = tconf.threshold
 Roi = roi.ROI()
-
-
 
 def balance_pic(image):
     if image is None:
@@ -247,8 +243,8 @@ def lineFollow(i):
     angle, shift = handle_pic2(fname, fout="out.jpg", show=True)
     print "Angle", angle, "Shift", shift
     """
-    for f in os.listdir('/home/pi/Desktop/images'):
-        return handle_pic('image{0:04d}.jpg'.format(i), show=True)
+    #for f in os.listdir('/home/pi/Desktop/images'):
+    return handle_pic('image{0:04d}.jpg'.format(i), show=True)
 
 
 # if __name__ == '__main__':
