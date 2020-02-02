@@ -7,7 +7,7 @@ import logging
 import geom_util as geom
 import roi
 import track_conf as tconf
-
+import serial
 
 
 #default gray threshold
@@ -262,5 +262,15 @@ if __name__ == '__main__':
     angle, shift = handle_pic2(fname, fout="out.jpg", show=True)
     print "Angle", angle, "Shift", shift
     """
+    
+    s1 = serial.Serial('/dev/ttyACM0', 9600)
     for f in os.listdir("images"):
-        a, s = handle_pic("images/" + f, show=True)
+        a, s = handle_pic("images/18.jpg", show=True)
+        if not isinstance(a, int):
+            print("d")
+            a = 150
+        a = a/3.6
+        a = 50-a
+        a = a + 65
+        a = int(a)
+        s1.write(str.encode(chr(a)))

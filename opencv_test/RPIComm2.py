@@ -10,9 +10,13 @@ def comm(firstAngle):
     time.sleep(1.65)
     try:
         firstAngle = ord(firstAngle)
+        if not isinstance(firstAngle, int):
+            print("d")
+            firstAngle = 150
+#         firstAngle = 90 - firstAngle
+#         firstAngle
         firstAngle = firstAngle/3.6
-        firstAngle = 25-firstAngle
-        firstAngle = firstAngle + 90
+        firstAngle = firstAngle + 65
         firstAngle = int(firstAngle)
         s.write(str.encode(chr(firstAngle)))
         i = 1
@@ -22,11 +26,13 @@ def comm(firstAngle):
             if response == b'DONE\r\n':
                 takePicture(i)
                 angle, shift = lineFollow(i)
+                if angle is None:
+                    angle = 120
                 #time.sleep(0.2)
                 angle = angle/3.6
-                angle = 25-angle
-                angle = angle + 90
+                angle = angle + 65
                 angle = int(angle)
+                print(angle)
                 s.write(str.encode(chr(angle)))
                 i+=1
     except KeyboardInterrupt:

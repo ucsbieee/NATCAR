@@ -142,8 +142,8 @@ def handle_pic(path, fout = None, show = False):
         #cv.line(image, p1, p2, (0, 255, 0), 3)
         msg_a = "Angle {0}".format(int(angle))
         msg_s = "Shift {0}".format(int(shift))
-        print(int(angle))
-        print(int(shift))
+        #print(int(angle))
+        #print(int(shift))
         #RPIComm.comm(chr(angle))
 
         #cv.putText(image, msg_a, (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1) # changed color from (255,255,255)
