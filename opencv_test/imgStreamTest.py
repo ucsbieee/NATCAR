@@ -16,9 +16,11 @@ def initStream():
 
     while True:
         try:
+            stream.seek(0)
             data = np.fromstring(stream.getvalue(), dtype=np.uint8)
             image = cv2.imdecode(data, 1)[:, :, ::-1]
             cv2.imshow('Image', image)
+            stream.truncate()
         except:
             continue
 
