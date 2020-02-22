@@ -1,21 +1,26 @@
-from time import sleep
+# import os
+import io
+import time
 import picamera
-import os
+from PIL import Image
+from time import sleep
 
-takePhoto = True
+# takePhoto = True
 
 def main():
 
-    os.chdir('/home/pi/Desktop/NATCAR/opencv_test/img')
+    # os.chdir('/home/pi/Desktop/images')
 
-    camera = picamera.PiCamera()
-    camera.resolution = (640, 480)
-    #sleep(2)
-    i = 0
-    
-    #while takePhoto:
-    for x in range(3):
-        camera.capture('image{0:04d}.jpg'.format(i))
-        i += 1
-    camera.close()
-#main()
+    # Create the in-memory stream
+    stream = io.BytesIO()
+    with picamera.PiCamera() as camera:
+        camera.resolution = (640, 480)
+        camera.start_preview()
+        time.sleep(2)
+        camera.capture(stream, format='jpeg')
+    # "Rewind" the stream to the beginning so we can read its content
+    stream.seek(2)
+    image = Image.open(stream)
+    image.show()
+
+main()
