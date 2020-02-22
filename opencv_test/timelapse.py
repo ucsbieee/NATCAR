@@ -32,7 +32,7 @@ def thread_function2():
     global camera
     global stream
     lock.acquire()
-    stream.seek(2)
+    stream.seek(0)
     image = Image.open(stream)
 
     os.chdir('/home/pi/Desktop')
