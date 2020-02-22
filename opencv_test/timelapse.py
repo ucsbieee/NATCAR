@@ -5,7 +5,8 @@ import time
 import picamera
 import threading
 import cv2
-import Image
+import PIL
+from PIL import Image
 from time import sleep
 
 stream = io.BytesIO()
