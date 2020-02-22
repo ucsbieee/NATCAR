@@ -92,12 +92,13 @@ def thread_function2():
     global stream
     global camera
     # lock.acquire()
-    try:
-        stream.seek(0)
-        image = Image.open(stream)
-        image.show()
-    except:
-        continue
+    while True:
+        try:
+            stream.seek(0)
+            image = Image.open(stream)
+            image.show()
+        except:
+            continue
     # lock.release()
 
 def main():
