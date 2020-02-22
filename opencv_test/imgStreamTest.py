@@ -29,7 +29,7 @@ def initStream():
         camera.start_preview()
         time.sleep(2)
         camera.capture(stream, format='jpeg')
-    data = np.fromstring(stream.getvalue(),, dtype=np.uint8)
+    data = np.fromstring(stream.getvalue(), dtype=np.uint8)
     image = cv2.imdecode(data, 1)
     image = image[:, :, ::-1]
     cv2.imshow('Image', image)
