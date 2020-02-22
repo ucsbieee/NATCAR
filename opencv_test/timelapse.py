@@ -47,9 +47,9 @@ def main():
 
     # Create the in-memory stream
     x = threading.Thread(target=thread_function)
-    y = threading.Thread(target=thread_function2)
+    # y = threading.Thread(target=thread_function2)
     x.start()
-    y.start()
+    # y.start()
     for i in range(10):
         print("new thread started!")
         y = threading.Thread(target=thread_function2)
