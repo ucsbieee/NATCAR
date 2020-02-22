@@ -110,8 +110,6 @@ def main():
     y = threading.Thread(target=thread_function2)
     x.start()
     y.start()
-    x.join()
-    y.join()
 
     # "Rewind" the stream to the beginning so we can read its content
 
