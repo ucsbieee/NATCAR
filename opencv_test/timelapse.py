@@ -35,8 +35,8 @@ def thread_function2():
     image = Image.open(stream)
 
     os.chdir('/home/pi/Desktop')
-    file = "img"
-    image.save(file,"JPEG")
+    # file = "img"
+    image.save("img.jpeg")
     # cv2.imwrite('data.jpeg',image)
     # image.show()
     lock.release()
