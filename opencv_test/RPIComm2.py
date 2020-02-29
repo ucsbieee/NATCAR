@@ -6,7 +6,7 @@ sys.path.insert(1, '../pi_cam')
 from timelapse2 import takePicture
 
 def comm(firstAngle):
-    s = serial.Serial('/dev/ttyACM0', 9600)
+    s = serial.Serial('/dev/ttyUSB0', 9600)
     time.sleep(1.65)
     try:
         firstAngle = ord(firstAngle)
