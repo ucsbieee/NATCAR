@@ -30,7 +30,7 @@ def thread_function2():
     lock.release()
 
 def main():
-    
+
     # os.chdir('/home/pi/Desktop/images')
 
     # Create the in-memory stream
@@ -39,7 +39,7 @@ def main():
     x.start()
     y.start()
     y.join()
-    
+
     # "Rewind" the stream to the beginning so we can read its content
 
 main()
