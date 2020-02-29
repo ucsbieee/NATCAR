@@ -7,39 +7,47 @@ import cv2
 import PIL
 from PIL import Image
 from time import sleep
+import numpy as np
 
-def thread1():
+stream = io.BytesIO()
+os.chdir('/home/pi/Desktop/temp')
+i = 0
+bufEmpty = True
+camera = picamera.PiCamera()
+camera.resolution = (640, 480)
+time.sleep(2)
+
+def streamF():
+    global stream
     global camera
-    global lock
+    global bufEmpty
     while True:
-        lock.acquire()
-        camera.capture(my_file)
-        lock.release()
-
-def thread2():
-    global camera
-    global lock
+        camera.capture(stream,format='jpeg')
+        bufEmpty = False
+        
+def showF():
+    global stream
+    global i
+    stream.seek(0)
     
+    data = np.frombuffer(stream.getvalue(), dtype=np.uint8)
+    img = cv2.imdecode(data,1)
+    cv2.imwrite('test' + str(i) + '.jpg', img)
+    cv2.imshow('img', cv2.imread('test' + str(i) + '.jpg'))
+    cv2.waitKey(0)    
 
 def main():
-    global lock = threading.Lock
+    global bufEmpty
+    stm = threading.Thread(target=streamF)
     
-    os.chdir('/home/pi/Desktop')
+    stm.start()
     
-    my_file = open('my_image.jpg', 'wb')
-    stream = io.BytesIO()
-    camera = picamera.PiCamera()
-    camera.resolution = (640, 480)
-    camera.start_preview()
-    time.sleep(2)
-    
-    
+    while bufEmpty:
+        continue
 
-#     camera.capture(my_file)
-    camera.stop_preview()
+    for i in range(10):
+        shw = threading.Thread(target=showF)
+        shw.start()
+        shw.join()
     
-    stream.seek(0)
-
-    my_file.close()
-
 main()
