@@ -1,7 +1,7 @@
 import serial
 import time
 import sys
-from lineFollow2 import lineFollow
+from lineFollow2 import lineFollow, handlepic_2
 sys.path.insert(1, '../pi_cam')
 from timelapse2 import takePicture
 
@@ -20,12 +20,17 @@ def comm(firstAngle):
         firstAngle = int(firstAngle)
         s.write(str.encode(chr(firstAngle)))
         i = 1
-        while True:
+        #while True:
+        for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port = True):    
             response = s.readline()
             print(response)
             if response == b'DONE\r\n':
-                takePicture(i)
-                angle, shift = lineFollow(i)
+                #takePicture(i)
+                image = frame.array
+                matImage = np.asmatrix(image)
+                angle, shift = handle_pic2(matImage)
+                #angle, shift = lineFollow(i)
+                rawCapture.truncate(0)
                 if angle is None:
                     angle = 120
                 #time.sleep(0.2)

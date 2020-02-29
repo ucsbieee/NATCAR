@@ -169,55 +169,55 @@ def handle_pic(path, fout = None, show = False):
 #     return gray, width / 2, height / 4
 # 
 
+def handle_pic2(image, fout = None, show = False):
+    # crop the top half of the image so it's as if the car were halfway up the track
+    # height, _ = image.shape[:2] # added
+    # image = image[:int(height/2),:] # added
 
-# def handle_pic2(path, fout = None, show = False):
-#     image = cv.imread(path)
-#     if image is None:
-#         logging.warning(("File not found", path))
-#         print("1")
-#         return None, None
-#     height, width = image.shape[:2]
-#     cropped, w, h = prepare_pic2(image)
-#     if cropped is None:
-#         print("2")
-#         return None, None
-#     cont, box = find_main_countour(cropped)
-#     if cont is None:
-#         print("3")
-#         return None, None
-# 
-#     p1, p2 = geom.calc_box_vector(box)
-#     if p1 is None:
-#         print("4")
-#         return None, None
-# 
-#     angle = geom.get_vert_angle(p1, p2, w, h)
-#     shift = geom.get_horz_shift(p1[0], w)
-# 
-#     draw = fout is not None or show
-# 
-#     if draw:
-#         w_offset = (width - w) / 2
-#         h_offset = (height - h)
-#         dbox = geom.shift_box(box, w_offset, h_offset)
-# 
-#         cv.drawContours(image,[dbox],0,(255,0,0),2)
-#         dp1 = (p1[0] + w_offset, p1[1] + h_offset)
-#         dp2 = (p2[0] + w_offset, p2[1] + h_offset)
-#         cv.line(image, dp1, dp2, (0, 255, 0), 3)
-#         msg_a = "Angle {0}".format(int(angle))
-#         msg_s = "Shift {0}".format(int(shift))
-# 
-#         cv.putText(image, msg_a, (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
-#         cv.putText(image, msg_s, (10, 40), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
-# 
-#     if fout is not None:
-#         cv.imwrite(fout, image)
-# 
-#     if show:
-#         cv.imshow("Image", image)
-#         cv.waitKey(0)
-#     return angle, shift
+    if image is None:
+        logging.warning(("File not found", path))
+        print("1")
+        return None, None
+    cropped, w, h = prepare_pic(image)
+    if cropped is None:
+        print("2")
+        return None, None
+    cont, box = find_main_countour(cropped)
+    if cont is None:
+        print("3")
+        return None, None
+
+    p1, p2 = geom.calc_box_vector(box)
+    if p1 is None:
+        print("4")
+        return None, None
+
+    angle = geom.get_vert_angle(p1, p2, w, h)
+    shift = geom.get_horz_shift(p1[0], w)
+
+    draw = fout is not None or show
+
+    if draw:
+        #cv.drawContours(image, [cont], -1, (0,0,255), 3)
+        #cv.drawContours(image,[box],0,(255,0,0),2)
+        #cv.line(image, p1, p2, (0, 255, 0), 3)
+        msg_a = "Angle {0}".format(int(angle))
+        msg_s = "Shift {0}".format(int(shift))
+        #print(int(angle))
+        #print(int(shift))
+        #RPIComm.comm(chr(angle))
+
+        #cv.putText(image, msg_a, (10, 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1) # changed color from (255,255,255)
+        #cv.putText(image, msg_s, (10, 40), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,0), 1) # changed color from (255,255,255)
+
+    #if fout is not None:
+    #    cv.imwrite(fout, image)
+
+    #if show:
+    #    cv.imshow("Image", image)
+    #    cv.waitKey(0)
+    return int(angle), int(shift)
+
 
 # def test():
 #     logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
