@@ -33,7 +33,8 @@ def showF():
     data = np.frombuffer(stream.getvalue(), dtype=np.uint8)
     img = cv2.imdecode(data,1)
     cv2.imwrite('test' + str(i) + '.jpg', img)
-    cv2.imshow('img', cv2.imread('test' + str(i) + '.jpg'))
+    #cv2.imshow('img', cv2.imread('test' + str(i) + '.jpg'))
+    cv2.imshow('img', img)
     cv2.waitKey(0)    
 
 def main():
