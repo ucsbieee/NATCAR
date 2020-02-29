@@ -56,7 +56,7 @@ def main():
         y = threading.Thread(target=thread_function2)
         y.start()
         y.join()
-    
+    camera.stop_preview()
     # "Rewind" the stream to the beginning so we can read its content
 
 main()
