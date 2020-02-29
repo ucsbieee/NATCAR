@@ -43,13 +43,16 @@ def thread_function2():
     lock.release()
 
 def main():
-    
+
     # os.chdir('/home/pi/Desktop/images')
 
     # Create the in-memory stream
     x = threading.Thread(target=thread_function)
     # y = threading.Thread(target=thread_function2)
     x.start()
+    y.start()
+    y.join()
+
     # y.start()
     for i in range(10):
         print("new thread started!")
