@@ -105,9 +105,10 @@ def find_main_countour(image):
     return C, box
 
 
-
-def handle_pic(path, fout = None, show = False):
-    image = cv.imread(path)
+#'image{0:04d}.jpg'.format(img), show=True
+# old parameters: path, fout = None, show = False
+def handle_pic(image, fout=None, show=False):
+    #image = cv.imread(path)
 
     # crop the top half of the image so it's as if the car were halfway up the track
     # height, _ = image.shape[:2] # added

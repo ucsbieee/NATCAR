@@ -16,39 +16,61 @@ bufEmpty = True
 camera = picamera.PiCamera()
 camera.resolution = (640, 480)
 time.sleep(2)
+lock = threading.RLock()
 
-def streamF():
+
+def startStream():
+    s = threading.Thread(target=imgStream)
+    s.start()
+
+def imgStream():
     global stream
     global camera
     global bufEmpty
     while True:
         camera.capture(stream,format='jpeg')
         bufEmpty = False
-        
-def showF():
+
+def show(img):
+    with lock:
+        try:
+            cv2.imshow('hello', img)
+            cv2.waitKey(0)
+        except KeyboardInterrupt:
+            cv2.destroyAllWindows()
+
+def getImage():
     global stream
     global i
+    global lock
     stream.seek(0)
     
     data = np.frombuffer(stream.getvalue(), dtype=np.uint8)
     img = cv2.imdecode(data,1)
-    cv2.imwrite('test' + str(i) + '.jpg', img)
+    try:
+        showImg = threading.Thread(target=show, args=(img,))
+        showImg.start()
+    except RuntimeError:
+        pass
+    return img
+    #cv2.imwrite('test' + str(i) + '.jpg', img)
     #cv2.imshow('img', cv2.imread('test' + str(i) + '.jpg'))
-    cv2.imshow('img', img)
-    cv2.waitKey(0)    
+    #cv2.imshow('img', img)
+    #cv2.waitKey(0)
 
 def main():
     global bufEmpty
-    stm = threading.Thread(target=streamF)
+    s = threading.Thread(target=imgStream)
     
-    stm.start()
+    s.start()
     
     while bufEmpty:
         continue
 
     for i in range(10):
-        shw = threading.Thread(target=showF)
-        shw.start()
-        shw.join()
-    
-main()
+        g = threading.Thread(target=getImage)
+        g.start()
+        g.join()
+        
+if __name__ == '__main__':
+    main()

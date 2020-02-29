@@ -16,4 +16,5 @@ from timelapse2 import takePicture
 # a = a + 90
 # a = int(a)
 # s.write(str.encode(chr(a)))
+RPIComm2.setup()
 RPIComm2.comm(chr(90))
