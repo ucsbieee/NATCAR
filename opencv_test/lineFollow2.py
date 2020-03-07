@@ -115,7 +115,7 @@ def handle_pic(image, fout=None, show=False):
     # image = image[:int(height/2),:] # added
 
     if image is None:
-        logging.warning(("File not found", path))
+        logging.warning(("Image is None"))
         print("1")
         return None, None
     cropped, w, h = prepare_pic(image)

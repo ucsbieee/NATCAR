@@ -29,6 +29,7 @@ def comm(firstAngle):
             response = s.readline()
             print(response)
             if response == b'DONE\r\n':
+                print(threading.active_count())
                 img = testImgStream2.getImage()
                 angle, shift = handle_pic(img)
                 if angle is None:
